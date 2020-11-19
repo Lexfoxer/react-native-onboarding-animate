@@ -252,9 +252,12 @@ export default class OnboardingAnimate extends React.Component {
           vertical={false}
           showsHorizontalScrollIndicator={false}
           scrollEventThrottle={14}
-          onScroll={Animated.event([{
-            nativeEvent: { contentOffset : { x: this._translateXValue }}
-          }])}
+          onScroll={Animated.event(
+            [{
+              nativeEvent: { contentOffset: { x: this._translateXValue }},
+            }],
+            { useNativeDriver: false },
+          )}
           onScrollEndDrag={this._handlePanResponderEnd}
         >
           <View style={[
@@ -263,8 +266,8 @@ export default class OnboardingAnimate extends React.Component {
               width: windowWidth * scenes.length
             }
           ]}>
-          {scenes.map(this._renderScene)}
-          {this._renderActionablePage()}
+            {scenes.map(this._renderScene)}
+            {this._renderActionablePage()}
           </View>
         </ScrollView>
 
@@ -309,7 +312,6 @@ export default class OnboardingAnimate extends React.Component {
 }
 
 OnboardingAnimate.propTypes = {
-
   // Mininum acceptable value for allowing navigate to next or previous scene
   minValueSwipeAccepted: PropTypes.number,
 
@@ -331,7 +333,7 @@ OnboardingAnimate.propTypes = {
   // Text title of the link to navigate to the actionable scene
   buttonActionableTitle: PropTypes.string,
 
-  // Callback when click on 'Completed' butotn in the last scene
+  // Callback when click on 'Completed' button in the last scene
   onCompleted: PropTypes.func.isRequired
 };
 
@@ -341,7 +343,7 @@ OnboardingAnimate.defaultProps = {
   inactiveColor: Colors.inactiveColor,
   sceneContainerStyle: Styles.sceneContainer,
   hideStatusBar: true,
-  navigateButtonTitle: 'Continue',
-  navigateButtonCompletedTitle: 'Completed',
+  navigateButtonTitle: 'Далее',
+  navigateButtonCompletedTitle: 'Готово!',
   buttonActionableTitle: 'Skip to Get Started'
 }
