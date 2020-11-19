@@ -34,21 +34,23 @@ export default class OnboardingAnimate extends React.Component {
   _translateXValue = new Animated.Value(0);
   _currentX = 0;
 
-  componentWillMount() {
+  componentDidMount() {
 
     this._translateXValue.addListener(({ value }) => {
 
-      // Keep track of transition X value, used to difine swipe direction
+      // Keep track of transition X value, used to define swipe direction
       this._currentX = value;
     })
 
   }
 
-  // When user is swiping, animate x cordinate accordingly
+  // When user is swiping, animate x coordinate accordingly
   _handlePanResponderMove = Animated.event([
     null,
     { dx: this._translateXValue }
-  ]);
+  ],
+  { useNativeDriver: false },
+  );
 
   // Handler when user stop swiping action
   _handlePanResponderEnd = (handler) => {
